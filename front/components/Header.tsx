@@ -2,6 +2,7 @@
 
 import { Flex, Text } from '@chakra-ui/react'
 import React from 'react'
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const Header = () => {
     return (
@@ -11,9 +12,7 @@ const Header = () => {
             <Text>
                 Logo
             </Text>
-            <Text>
-                Connexion
-            </Text>
+            <ConnectButton />
         </Flex>
     )
 }
