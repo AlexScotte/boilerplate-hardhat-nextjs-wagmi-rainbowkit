@@ -1,6 +1,7 @@
 'use client';
 
 import { ChakraProvider } from "@chakra-ui/react";
+import ContractProvider from '../components/contexts/contractContext';
 
 import '@rainbow-me/rainbowkit/styles.css';
 import {
@@ -45,7 +46,9 @@ export default function RootLayout({
           <QueryClientProvider client={queryClient}>
             <RainbowKitProvider>
               <ChakraProvider>
-                {children}
+                <ContractProvider>
+                  {children}
+                </ContractProvider>
               </ChakraProvider>
             </RainbowKitProvider>
           </QueryClientProvider>
