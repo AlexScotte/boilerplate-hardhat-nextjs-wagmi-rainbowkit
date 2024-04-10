@@ -8,7 +8,7 @@ const INFURA_ID = process.env.INFURA_ID || "";
 const config: HardhatUserConfig = {
   solidity: "0.8.24",
 
-  defaultNetwork: "hardhat",
+  defaultNetwork: "localhost",
   etherscan: {
     apiKey: `${ETHERSCAN_API_KEY}`,
   },
