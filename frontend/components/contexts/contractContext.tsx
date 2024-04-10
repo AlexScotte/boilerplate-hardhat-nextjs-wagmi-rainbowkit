@@ -1,8 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
 import { GetExpectedChainIdWithEnv } from "@/utils/utils";
-import {
-    useAccount,
-} from "wagmi";
 import { useErrorStore } from "@/components/errors/ErrorStore";
 import { Contract } from "@/types/contract";
 
@@ -12,7 +9,7 @@ const ContractProvider = ({ children }: { children: React.ReactNode }) => {
 
     const { inError } = useErrorStore();
 
-    const [contracts, setContracts] = useState<Contract>({ "simpleStorageAbi": "" });
+    const [contracts, setContracts] = useState<Contract>({ "simpleStorageAddress": "", "simpleStorageAbi": "" });
 
     const expectedChainId = GetExpectedChainIdWithEnv();
 
@@ -24,6 +21,7 @@ const ContractProvider = ({ children }: { children: React.ReactNode }) => {
 
     const getContractAbi = async () => {
 
+        let simpleStorageAddress;
         let simpleStorageAbi;
         try {
             // Try to get the contract artifact
@@ -35,6 +33,7 @@ const ContractProvider = ({ children }: { children: React.ReactNode }) => {
                 useErrorStore.setState({ inError: true, errorMessage: error });
             }
 
+            simpleStorageAddress = simpleStorageArtifact.networks[expectedChainId].address;
             simpleStorageAbi = simpleStorageArtifact.abi;
             console.log("SimpleStorage contract loaded");
         }
@@ -47,7 +46,7 @@ const ContractProvider = ({ children }: { children: React.ReactNode }) => {
          *************************************/
 
 
-        setContracts({ simpleStorageAbi });
+        setContracts({ simpleStorageAddress, simpleStorageAbi });
     };
 
 

@@ -22,7 +22,7 @@ async function main() {
         await contract.waitForDeployment();
 
         console.log(
-            `SimpleStorage deployed to: ${contract.target} by: ${owner.address}`
+            `SimpleStorage deployed to: ${contract.target} by: ${owner.address} on network: ${hre.network.name} with chainId: ${hre.network.config.chainId}`
         )
     }
     catch (error) {
