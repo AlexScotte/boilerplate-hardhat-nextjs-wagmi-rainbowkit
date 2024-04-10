@@ -21,7 +21,7 @@ const Header = () => {
                 spacing={100}>
 
                 <Link
-                    href="/Get"
+                    href="/get"
                 >
                     {/* className={
                   "item-menu " +
@@ -32,7 +32,7 @@ const Header = () => {
                     Get
                 </Link>
                 <Link
-                    href="/Set"
+                    href="/set"
                 >
                     {/* className={
                   "item-menu " +

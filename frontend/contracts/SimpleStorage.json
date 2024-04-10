@@ -146,10 +146,10 @@
   "deployedLinkReferences": {},
   "networks": {
     "31337": {
-      "address": "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
+      "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
       "network": "localhost",
-      "transactionHash": "0x602da4e6a8e793bab41feee57d60bf9b1bc382d7fdb099e7fd83383f43abe347",
-      "blockNumber": 19
+      "transactionHash": "0x14ca8b7082238cc3094d74d21911202db8cce586d63b4506b3a01f1244c19365",
+      "blockNumber": 1
     }
   }
 }
