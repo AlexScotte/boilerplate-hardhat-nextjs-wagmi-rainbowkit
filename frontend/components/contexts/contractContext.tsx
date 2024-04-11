@@ -11,7 +11,7 @@ const ContractProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [contracts, setContracts] = useState<Contract>({ "simpleStorageDeployedBlockNumber": 0, "simpleStorageAddress": "", "simpleStorageAbi": "" });
 
-    const expectedChainId = GetExpectedChainIdWithEnv();
+    const [expectedChainId] = GetExpectedChainIdWithEnv();
 
     useEffect(() => {
         console.log(`Loading contract provider on chain : ${expectedChainId}`);
@@ -28,15 +28,15 @@ const ContractProvider = ({ children }: { children: React.ReactNode }) => {
         try {
             // Try to get the contract artifact
             const simpleStorageArtifact = require("@/contracts/SimpleStorage.json");
-            if (!simpleStorageArtifact.networks[expectedChainId]) {
+            if (!simpleStorageArtifact.networks[expectedChainId.toString()]) {
 
                 const error = `SimpleStorage contract not deployed on chaind id ${expectedChainId}`;
                 console.log(error);
                 useErrorStore.setState({ inError: true, errorMessage: error });
             }
 
-            simpleStorageDeployedBlockNumber = simpleStorageArtifact.networks[expectedChainId].blockNumber;
-            simpleStorageAddress = simpleStorageArtifact.networks[expectedChainId].address;
+            simpleStorageDeployedBlockNumber = simpleStorageArtifact.networks[expectedChainId.toString()].blockNumber;
+            simpleStorageAddress = simpleStorageArtifact.networks[expectedChainId.toString()].address;
             simpleStorageAbi = simpleStorageArtifact.abi;
             console.log("SimpleStorage contract loaded");
         }

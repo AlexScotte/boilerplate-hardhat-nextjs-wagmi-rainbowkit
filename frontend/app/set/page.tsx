@@ -27,8 +27,8 @@ import {
   type Abi,
 } from 'abitype'
 
-import { createPublicClient, http, Log, parseAbiItem } from "viem";
-import { mainnet, localhost } from 'viem/chains'
+import { createPublicClient, http, Log, parseAbiItem, Chain } from "viem";
+import { GetExpectedChainIdWithEnv } from "@/utils/utils";
 
 const Set = () => {
   const { address, isConnected } = useAccount();
@@ -36,7 +36,7 @@ const Set = () => {
   const { simpleStorageDeployedBlockNumber, simpleStorageAddress, simpleStorageAbi } = useContext<Contract>(ContractContext);
   const [newValue, setNewValue] = useState<number>(0);
   const [valueChangedEventList, setValueChangedEventList] = useState<ValueChangedEventType[]>([]);
-
+  const [expectedChainId, expectedChainViem] = GetExpectedChainIdWithEnv();
 
 
   const {
@@ -62,7 +62,7 @@ const Set = () => {
   useEffect(() => {
     const getEventHistory = async () => {
       const publicClient = createPublicClient({
-        chain: localhost,
+        chain: expectedChainViem as Chain,
         transport: http()
       })
 

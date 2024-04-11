@@ -1,3 +1,5 @@
+import { mainnet, localhost, sepolia, polygonMumbai } from "viem/chains";
+
 export const ChainID = {
     Local: 1337,
     HardhatLocal: 31337,
@@ -11,8 +13,8 @@ export const ChainID = {
  */
 export const GetExpectedChainIdWithEnv = () => {
     if (process.env.NODE_ENV === "production") {
-        return ChainID.Sepolia;
+        return [ChainID.Sepolia, sepolia];
     } else {
-        return ChainID.HardhatLocal;
+        return [ChainID.HardhatLocal, localhost];
     }
 };
