@@ -2,7 +2,7 @@
 import Layout from "@/components/Layout";
 import { useContext, useEffect, useState } from "react";
 import { ContractContext } from "@/components/contexts/contractContext";
-import { Contract } from "@/types/contract";
+import { Contract, ValueChangedEventType } from "@/types/contract";
 import {
   Button,
   Flex,
@@ -11,6 +11,8 @@ import {
   NumberInputStepper,
   NumberDecrementStepper,
   NumberIncrementStepper,
+  List,
+  ListItem,
   useToast
 } from "@chakra-ui/react";
 
@@ -18,15 +20,24 @@ import {
   useAccount,
   useWriteContract,
   useWaitForTransactionReceipt,
+  useWatchContractEvent,
+
 } from "wagmi";
 import {
   type Abi,
 } from 'abitype'
+
+import { createPublicClient, http, Log, parseAbiItem } from "viem";
+import { mainnet, localhost } from 'viem/chains'
+
 const Set = () => {
   const { address, isConnected } = useAccount();
   const toast = useToast();
-  const { simpleStorageAddress, simpleStorageAbi } = useContext<Contract>(ContractContext);
+  const { simpleStorageDeployedBlockNumber, simpleStorageAddress, simpleStorageAbi } = useContext<Contract>(ContractContext);
   const [newValue, setNewValue] = useState<number>(0);
+  const [valueChangedEventList, setValueChangedEventList] = useState<ValueChangedEventType[]>([]);
+
+
 
   const {
     data: hash,
@@ -40,10 +51,82 @@ const Set = () => {
     error: txConfirmationError,
   } = useWaitForTransactionReceipt({ hash })
 
-
   /********************
-   * Validation/Error management *
+   * Event management *
    ********************/
+
+
+  /**
+   * Get the history of the valueChanged event
+   */
+  useEffect(() => {
+    const getEventHistory = async () => {
+      const publicClient = createPublicClient({
+        chain: localhost,
+        transport: http()
+      })
+
+      const logss = await publicClient.getLogs({
+        address: simpleStorageAddress as `0x${string}`,
+        event: parseAbiItem('event valueChanged(uint256 oldValue, uint256 newValue, address who)'),
+        fromBlock: BigInt(simpleStorageDeployedBlockNumber),
+      });
+
+      let oldEventList: ValueChangedEventType[] = [];
+      logss.forEach(log => {
+        const valueChangedEvent = createEvent(log);
+        oldEventList.push(valueChangedEvent);
+      });
+
+      setValueChangedEventList(oldEventList.reverse());
+    };
+
+    if (simpleStorageAddress) {
+      getEventHistory();
+    }
+
+  }, [simpleStorageAddress]);
+
+  /**
+   * Manage the valueChanged event of the contract
+   */
+  useWatchContractEvent({
+    address: simpleStorageAddress as `0x${string}`,
+    abi: simpleStorageAbi as unknown as Abi,
+    eventName: 'valueChanged',
+    onLogs(logs: Log[]) {
+      manageValueChangedEvent(logs[0]);
+    }
+  })
+
+  /**
+ * Build list event data
+ */
+  const manageValueChangedEvent = (log: Log) => {
+
+    const valueChangedEvent = createEvent(log);
+
+    if (!valueChangedEventList.some(v => v.txHash === valueChangedEvent.txHash)) {
+      setValueChangedEventList([valueChangedEvent, ...valueChangedEventList]);
+    }
+  }
+
+  const createEvent = (log: Log): ValueChangedEventType => {
+    const valueChangedEvent: ValueChangedEventType = {
+      txHash: log.transactionHash?.toString(),
+      oldValue: log.args.oldValue,
+      newValue: log.args.newValue,
+      from: log.args.who
+    }
+    return valueChangedEvent;
+  }
+  /********************* */
+
+
+
+  /*******************************
+   * Validation/Error management *
+   *******************************/
   useEffect(() => {
 
     if (isTxConfirming) {
@@ -109,16 +192,14 @@ const Set = () => {
 
     }
   }, [setStoredValueError])
-
   /********************* */
+
 
 
   /**
    * Modify the value in the contract
    */
   const setStoredValue = async () => {
-
-    console.log(newValue);
 
     if (!isConnected) {
 
@@ -134,7 +215,7 @@ const Set = () => {
     else {
 
       try {
-        const test = await writeContract({
+        await writeContract({
           address: simpleStorageAddress as `0x${string}`,
           abi: simpleStorageAbi as unknown as Abi,
           functionName: 'set',
@@ -150,7 +231,11 @@ const Set = () => {
 
   return (
     <Layout>
-      <Flex direction={"column"} rowGap={5}>
+      <Flex
+
+        direction={"column"}
+        rowGap={5}
+        width={['100%', '100%', '50%', '50%']}>
         <NumberInput
           onChange={(_, valueAsNumber) => setNewValue(valueAsNumber)}
           value={newValue}
@@ -167,6 +252,24 @@ const Set = () => {
           isLoading={isStoredValuePending}>
           Set
         </Button>
+        <List
+          flexDirection={'column-reverse'}
+          border="1px solid black"
+          h="200px"
+          overflowY="auto"
+          w="100%"
+          p="3"
+          borderRadius={5}
+          textAlign={"center"}
+        >
+
+          {valueChangedEventList.map((item, index) => (
+            <ListItem
+              key={index}>
+              Value changed from {item.oldValue.toString()} to {item.newValue.toString()} by {item.from}
+            </ListItem>
+          ))}
+        </List>
       </Flex>
     </Layout>
   );

@@ -6,6 +6,7 @@ import Layout from "@/components/Layout";
 import { Button } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import { Spinner } from '@chakra-ui/react'
+import { WagmiProvider } from "wagmi";
 // WAGMI
 import {
   useAccount,
@@ -209,7 +210,7 @@ const Get = () => {
     }
     else {
 
-      const data = await readContract({}, {
+      const data = await readContract(WagmiProvider.clien, {
         address: simpleStorageAddress,
         abi: simpleStorageAbi,
         functionName: 'get',

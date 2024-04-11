@@ -16,7 +16,6 @@ async function main() {
     let contract: SimpleStorage;
 
     try {
-        // TODO: manage signer for other networks
         const [owner] = await ethers.getSigners();
         contract = await ethers.deployContract('SimpleStorage', [owner.address]);
         await contract.waitForDeployment();
