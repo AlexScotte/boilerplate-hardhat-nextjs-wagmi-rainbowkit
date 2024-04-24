@@ -18,3 +18,12 @@ export const GetExpectedChainIdWithEnv = () => {
         return [ChainID.HardhatLocal, localhost];
     }
 };
+
+/**
+ * 
+ * @param address 
+ * @returns 
+ */
+export const ToShortAddress = (address : string) => {
+    return address.substring(0, 5) + "..." + address.substring(address.length - 4);
+  };

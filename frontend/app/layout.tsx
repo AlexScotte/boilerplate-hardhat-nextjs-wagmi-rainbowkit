@@ -1,9 +1,8 @@
 'use client';
+import '../index.css';
 
 import { ChakraProvider } from "@chakra-ui/react";
 import ContractProvider from '../components/contexts/contractContext';
-
-import '@rainbow-me/rainbowkit/styles.css';
 import {
   getDefaultConfig,
   RainbowKitProvider,
@@ -22,6 +21,7 @@ import {
   QueryClientProvider,
   QueryClient,
 } from "@tanstack/react-query";
+import { rainbowKitCustomTheme } from '../components/style';
 
 const WALLET_CONNECT = process.env.NEXT_PUBLIC_WALLET_CONNECT || "";
 
@@ -34,6 +34,8 @@ const config = getDefaultConfig({
 
 const queryClient = new QueryClient();
 
+
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -44,9 +46,16 @@ export default function RootLayout({
       <body>
         <WagmiProvider config={config}>
           <QueryClientProvider client={queryClient}>
-            <RainbowKitProvider>
-              <ChakraProvider>
-                <ContractProvider>
+            <RainbowKitProvider theme={rainbowKitCustomTheme}>
+              <ChakraProvider 
+                toastOptions={{ 
+                    defaultOptions:{ 
+                      duration: 5000,
+                      position: "bottom-right",
+                      isClosable: true,
+                    }
+                  }}>
+                <ContractProvider >
                   {children}
                 </ContractProvider>
               </ChakraProvider>

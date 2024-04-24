@@ -1,0 +1,74 @@
+body{
+  background-color: red;
+  /* background-image: url('./images/background.jpg'); */
+}
+
+@font-face {
+    font-family: 'UnitedKingdom';
+    src: local('UnitedKingdom'), url(./fonts/UnitedKingdom.otf) format('opentype');
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+  }
+
+  @font-face {
+    font-family: 'RedSeven';
+    src: local('RedSeven'), url(./fonts/RedSeven.otf) format('opentype');
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+  }
+
+  @font-face {
+    font-family: 'SweraRegular';
+    src: local('SweraRegular'), url(./fonts/SweraRegular.otf) format('opentype');
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+  }
+
+  @font-face {
+    font-family: 'SambaIsDead';
+    src: local('SambaIsDead'), url(./fonts/SambaIsDead.ttf) format('truetype');
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+  }
+
+  @font-face {
+    font-family: 'Ethnocentric';
+    src: local('Ethnocentric'), url(./fonts/Ethnocentric.otf) format('opentype');
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    /* background: var(--lightestgrey);  */
+    border-radius: 20px !important;
+    box-shadow: rgb(15, 15, 15) 0px 0px 6px inset;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    box-shadow: rgb(255, 192, 0, .4) 0px 0px 6px inset;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(190, 167, 126, 0.5); 
+  }
+  
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }

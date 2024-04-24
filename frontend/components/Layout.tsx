@@ -2,6 +2,7 @@ import React from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import { Flex } from '@chakra-ui/react'
+import { BodyBorderStyle } from './style'
 
 const Layout = ({
     children,
@@ -9,24 +10,34 @@ const Layout = ({
     children: React.ReactNode;
 }>) => {
     return (
+        <div style={{ 
+            // backgroundImage: `url(${process.env.PUBLIC_URL + '/backgrounds/1.png'})`,
+            backgroundImage: `url(./backgrounds/6.png)`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+          }}>
+
         <Flex direction="column"
             h="100vh"
             justifyContent="center"
         >
 
-            <Header />
+            <Header/>
+            
             <Flex
-                grow="1"
-                p="2rem"
+                grow={1}
                 justifyContent="center"
                 alignItems="center"
-                width="100%"
-                height="100%">
+                sx={BodyBorderStyle}
+               >
                 {children}
             </Flex>
+            
             <Footer />
 
         </Flex>
+        </div>
+
     )
 }
 

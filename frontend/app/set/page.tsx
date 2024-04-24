@@ -13,7 +13,10 @@ import {
   NumberIncrementStepper,
   List,
   ListItem,
-  useToast
+  Card,
+  CardBody,
+  useToast,
+  Center
 } from "@chakra-ui/react";
 
 import {
@@ -28,10 +31,11 @@ import {
 } from 'abitype'
 
 import { createPublicClient, http, Log, parseAbiItem, Chain } from "viem";
-import { GetExpectedChainIdWithEnv } from "@/utils/utils";
+import { GetExpectedChainIdWithEnv, ToShortAddress } from "@/utils/utils";
+import { DescriptionSmallTextStyle, DescriptionTextStyle, MainButtonStyle, MainCardStyle, MainInputFieldStyle, MainInputStyle, MainListStyle, MainNumberIncrementStepperStyle, MainTextStyle, ToastErrorStyle, ToastInfoStyle, ToastSuccessStyle, ToastWarningStyle } from "@/components/style";
 
 const Set = () => {
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, chain } = useAccount();
   const toast = useToast();
   const { simpleStorageDeployedBlockNumber, simpleStorageAddress, simpleStorageAbi } = useContext<Contract>(ContractContext);
   const [newValue, setNewValue] = useState<number>(0);
@@ -134,9 +138,7 @@ const Set = () => {
         title: "Waiting for confirmation ...",
         description: `Transaction hash: ${hash}`,
         status: "loading",
-        duration: 5000,
-        position: "bottom-right",
-        isClosable: true,
+        containerStyle: ToastInfoStyle
       })
     }
   }, [isTxConfirming])
@@ -148,11 +150,9 @@ const Set = () => {
 
       toast({
         title: "Transaction confirmed !",
-        description: `${hash}`,
+        description: `Tx: ${hash}`,
         status: "success",
-        duration: 5000,
-        position: "bottom-right",
-        isClosable: true,
+        containerStyle: ToastSuccessStyle
       })
     }
   }, [isTxConfirmed])
@@ -165,9 +165,7 @@ const Set = () => {
         title: "Transaction error",
         description: `${txConfirmationError.message}`,
         status: "error",
-        duration: 5000,
-        position: "bottom-right",
-        isClosable: true,
+        containerStyle: ToastErrorStyle
       })
     }
 
@@ -183,9 +181,7 @@ const Set = () => {
         title: "Transaction error",
         description: `${setStoredValueError.message}`,
         status: "error",
-        duration: 5000,
-        position: "bottom-right",
-        isClosable: true,
+        containerStyle: ToastErrorStyle
       })
 
       console.log(setStoredValueError);
@@ -207,12 +203,23 @@ const Set = () => {
         title: "Not connected",
         description: "Please connect your wallet",
         status: "warning",
-        duration: 5000,
-        position: "bottom-right",
-        isClosable: true,
+        containerStyle: ToastWarningStyle
       })
     }
     else {
+
+      if(chain?.id !== expectedChainId){
+
+        toast.closeAll();
+        toast({
+          title: "Wrong network",
+          description: `Please connect to ${expectedChainViem.name}`,
+          status: "warning",
+          duration: 9999999,
+          containerStyle: ToastWarningStyle
+        })
+        return;
+      }
 
       try {
         await writeContract({
@@ -231,46 +238,58 @@ const Set = () => {
 
   return (
     <Layout>
-      <Flex
-
-        direction={"column"}
-        rowGap={5}
-        width={['100%', '100%', '50%', '50%']}>
-        <NumberInput
-          onChange={(_, valueAsNumber) => setNewValue(valueAsNumber)}
-          value={newValue}
-          min={0}>
-          <NumberInputField />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
-
-        <Button
-          onClick={() => setStoredValue()}
-          isLoading={isStoredValuePending}>
-          Set
-        </Button>
-        <List
-          flexDirection={'column-reverse'}
-          border="1px solid black"
-          h="200px"
-          overflowY="auto"
-          w="100%"
-          p="3"
-          borderRadius={5}
-          textAlign={"center"}
+      <Card
+        sx={MainCardStyle}
+        // height={"100%"}
+        p={5}
         >
+        <CardBody>
+          <Flex
+            direction={"column"}
+            rowGap={5}>
+            <NumberInput
+              sx={MainInputStyle}
+              onChange={(_, valueAsNumber) => setNewValue(valueAsNumber)}
+              value={newValue}
+              min={0}>
+              <NumberInputField 
+                textAlign={"end"} 
+                sx={MainInputFieldStyle}/>
+              <NumberInputStepper border={0}>
+                <NumberIncrementStepper sx={MainNumberIncrementStepperStyle}/>
+                <NumberDecrementStepper sx={MainNumberIncrementStepperStyle}/>
+              </NumberInputStepper>
+            </NumberInput>
 
-          {valueChangedEventList.map((item, index) => (
-            <ListItem
-              key={index}>
-              Value changed from {item.oldValue.toString()} to {item.newValue.toString()} by {item.from}
-            </ListItem>
-          ))}
-        </List>
-      </Flex>
+            <Button
+              sx={MainButtonStyle}
+              onClick={() => setStoredValue()}
+              isLoading={isStoredValuePending}>
+              Set
+            </Button>
+
+            <List
+                sx={MainListStyle}>
+                {               
+                valueChangedEventList.length === 0 ? 
+                (
+                  <Center sx={DescriptionTextStyle}>No event</Center> 
+                ):
+                (
+                  valueChangedEventList.map((item, index) => (
+                    <ListItem
+                    key={index}>
+                      <Center sx={DescriptionSmallTextStyle}>
+                        Value changed from {item.oldValue.toString()} to {item.newValue.toString()} by {ToShortAddress(item.from)}
+                      </Center>
+                    </ListItem>
+                  ))
+                )
+              }
+            </List>
+          </Flex>
+        </CardBody>
+      </Card>
     </Layout>
   );
 }
