@@ -57,16 +57,19 @@ const Get = () => {
     }
     else {
 
-      if (typeof expectedChainViem === 'object' && 'name' in expectedChainViem) {
-        toast.closeAll();
-        toast({
-          title: "Wrong network",
-          description: `Please connect to ${expectedChainViem.name}`,
-          status: "warning",
-          duration: 9999999,
-          containerStyle: ToastWarningStyle
-        })
-        return;
+      if (chain?.id !== expectedChainId) {
+
+        if (typeof expectedChainViem === 'object' && 'name' in expectedChainViem) {
+          toast.closeAll();
+          toast({
+            title: "Wrong network",
+            description: `Please connect to ${expectedChainViem.name}`,
+            status: "warning",
+            duration: 9999999,
+            containerStyle: ToastWarningStyle
+          })
+          return;
+        }
       }
 
       const result = await refetchStoredValue();
