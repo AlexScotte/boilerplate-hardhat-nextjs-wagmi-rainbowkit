@@ -51,14 +51,14 @@ export default function RootLayout({
         <WagmiProvider config={config}>
           <QueryClientProvider client={queryClient}>
             <RainbowKitProvider theme={merge(darkTheme(), rainbowKitCustomTheme)}>
-              <ChakraProvider 
-                toastOptions={{ 
-                    defaultOptions:{ 
-                      duration: 5000,
-                      position: "bottom-right",
-                      isClosable: true,
-                    }
-                  }}>
+              <ChakraProvider
+                toastOptions={{
+                  defaultOptions: {
+                    duration: 5000,
+                    position: "bottom-right",
+                    isClosable: true,
+                  }
+                }}>
                 <ContractProvider >
                   {children}
                 </ContractProvider>
