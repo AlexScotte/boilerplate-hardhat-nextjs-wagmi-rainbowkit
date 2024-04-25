@@ -150,6 +150,12 @@
       "network": "localhost",
       "transactionHash": "0x14ca8b7082238cc3094d74d21911202db8cce586d63b4506b3a01f1244c19365",
       "blockNumber": 1
+    },
+    "11155111": {
+      "address": "0x7f2DEA35b55499Bf624Fe8C57BAaD6E3Eaac752E",
+      "network": "sepolia",
+      "transactionHash": "0xbb8d3c25b0ff06fd1b54dca65398186e2061f714bf06555b7fc6a278fedb74c5",
+      "blockNumber": null
     }
   }
 }

@@ -24,14 +24,14 @@ import {
   useWriteContract,
   useWaitForTransactionReceipt,
   useWatchContractEvent,
-
+  useBlockNumber,
 } from "wagmi";
 import {
   type Abi,
 } from 'abitype'
 
 import { createPublicClient, http, Log, parseAbiItem, Chain } from "viem";
-import { GetExpectedChainIdWithEnv, ToShortAddress } from "@/utils/utils";
+import { ChainID, GetExpectedChainIdWithEnv, ToShortAddress } from "@/utils/utils";
 import { DescriptionSmallTextStyle, DescriptionTextStyle, MainButtonStyle, MainCardStyle, MainInputFieldStyle, MainInputStyle, MainListStyle, MainNumberIncrementStepperStyle, MainTextStyle, ToastErrorStyle, ToastInfoStyle, ToastSuccessStyle, ToastWarningStyle } from "@/components/style";
 
 const Set = () => {
@@ -41,7 +41,7 @@ const Set = () => {
   const [newValue, setNewValue] = useState<number>(0);
   const [valueChangedEventList, setValueChangedEventList] = useState<ValueChangedEventType[]>([]);
   const [expectedChainId, expectedChainViem] = GetExpectedChainIdWithEnv();
-
+  const {data} = useBlockNumber();
 
   const {
     data: hash,
@@ -53,6 +53,7 @@ const Set = () => {
     isLoading: isTxConfirming,
     isSuccess: isTxConfirmed,
     error: txConfirmationError,
+    
   } = useWaitForTransactionReceipt({ hash })
 
   /********************
@@ -64,20 +65,29 @@ const Set = () => {
    * Get the history of the valueChanged event
    */
   useEffect(() => {
+
     const getEventHistory = async () => {
+
+      let publicNode = http();
+      if(expectedChainId === ChainID.Sepolia){
+        publicNode = http("https://gateway.tenderly.co/public/sepolia");
+      }
+
       const publicClient = createPublicClient({
         chain: expectedChainViem as Chain,
-        transport: http()
+        transport: publicNode,
       })
 
-      const logss = await publicClient.getLogs({
+      const logs = await publicClient.getLogs({
         address: simpleStorageAddress as `0x${string}`,
         event: parseAbiItem('event valueChanged(uint256 oldValue, uint256 newValue, address who)'),
-        fromBlock: BigInt(simpleStorageDeployedBlockNumber),
+        // fromBlock: simpleStorageDeployedBlockNumber ? BigInt(simpleStorageDeployedBlockNumber) : undefined,
+        fromBlock: BigInt(0),
+        toBlock: 'latest',
       });
 
       let oldEventList: ValueChangedEventType[] = [];
-      logss.forEach(log => {
+      logs.forEach(log => {
         const valueChangedEvent = createEvent(log);
         oldEventList.push(valueChangedEvent);
       });
@@ -134,11 +144,18 @@ const Set = () => {
   useEffect(() => {
 
     if (isTxConfirming) {
+
+      const title = "Waiting for confirmation ...";
+      const description = `Transaction hash: ${hash}`;
+      console.log(title);
+      console.log(description);
+
       toast({
-        title: "Waiting for confirmation ...",
-        description: `Transaction hash: ${hash}`,
+        title: title,
+        description: description,
         status: "loading",
-        containerStyle: ToastInfoStyle
+        containerStyle: ToastInfoStyle,
+        duration: 9999999
       })
     }
   }, [isTxConfirming])
@@ -148,9 +165,14 @@ const Set = () => {
     if (isTxConfirmed) {
       toast.closeAll();
 
+      const title = "Transaction confirmed !";
+      const description = `Tx: ${hash}`;
+      console.log(title);
+      console.log(description);
+
       toast({
-        title: "Transaction confirmed !",
-        description: `Tx: ${hash}`,
+        title: title,
+        description: description,
         status: "success",
         containerStyle: ToastSuccessStyle
       })
@@ -167,9 +189,9 @@ const Set = () => {
         status: "error",
         containerStyle: ToastErrorStyle
       })
-    }
 
-    console.log(txConfirmationError);
+      console.log(txConfirmationError);
+    }
 
   }, [txConfirmationError])
 
@@ -240,7 +262,6 @@ const Set = () => {
     <Layout>
       <Card
         sx={MainCardStyle}
-        // height={"100%"}
         p={5}
         >
         <CardBody>
