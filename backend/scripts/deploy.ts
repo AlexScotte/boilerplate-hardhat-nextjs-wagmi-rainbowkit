@@ -31,23 +31,23 @@ async function main() {
             `✅ ${contractName} deployed to: ${contract.target} by: ${owner.address} on network: ${hre.network.name} with chainId: ${hre.network.config.chainId}`
         )
 
+        await saveFrontendFiles(contractName, contract);
+
         if (hre.network.name !== "hardhat" && hre.network.name !== "localhost") {
 
             console.log(`📝 Verifying contract: ${contractName}...`)
             await run(`verify:verify`, {
                 address: contract.target,
-                // constructorArguments: [],
+                constructorArguments: [owner.address],
             });
             console.log(
-                `✅ ${contractName} verified ! Check on https://etherscan.io/address/${contract.target}#code`
+                `✅ ${contractName} verified !`
             )
         }
     }
     catch (error) {
         throw new Error(`❌ Error when deploying contract: ${error}`);
     }
-
-    await saveFrontendFiles(contractName, contract);
 }
 
 async function saveFrontendFiles(contractName: string, contract: BaseContract) {

@@ -11,7 +11,7 @@ const Footer = () => {
             p="2rem"
             sx={FooterBorderStyle}>
             <Center sx={FooterTextStyle} >
-                All right reserved &copy; {new Date().getFullYear()}
+                All right reserved &copy; ASC Solutions {new Date().getFullYear()}
             </Center>
         </Flex>
     )
