@@ -3,9 +3,7 @@ import {
   getDefaultConfig,
   RainbowKitProvider,
   Theme,
-  darkTheme,
 } from '@rainbow-me/rainbowkit';
-import merge from 'lodash.merge';
 
 const TitleTextFont = "Ethnocentric";
 const DescriptionTextFont = "SambaIsDead";
@@ -14,7 +12,7 @@ const MainColorAttenuated = "rgb(255, 192, 0, .2)";
 const MainBorderStyle = `.5px solid ${MainColor}`;
 const MainBorderAttenuatedStyle = `.5px solid ${MainColorAttenuated}`;
 const LargeBorderStyle = `1px solid ${MainColor}`;
-const MainTextColor = "white";
+export const MainTextColor = "white";
 
 export const HeaderBorderStyle = {
     marginTop: 2,
@@ -225,7 +223,7 @@ export const ToastSuccessStyle =  {
  * RainbowKit custom theme
  * https://rainbowkit-theme.com/ for help
  */
-export const rainbowKitCustomTheme = merge(darkTheme(), {
+export const rainbowKitCustomTheme = {
     colors: {
       accentColor: MainColorAttenuated,
       accentColorForeground: MainTextColor,
@@ -260,5 +258,5 @@ export const rainbowKitCustomTheme = merge(darkTheme(), {
     fonts: {
       body: TitleTextFont,
     },
-  } as Theme);
+  } as Theme;
   

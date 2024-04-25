@@ -6,7 +6,10 @@ import ContractProvider from '../components/contexts/contractContext';
 import {
   getDefaultConfig,
   RainbowKitProvider,
+  darkTheme,
 } from '@rainbow-me/rainbowkit';
+import merge from 'lodash.merge';
+
 import { WagmiProvider } from 'wagmi';
 import {
   hardhat,
@@ -21,6 +24,7 @@ import {
   QueryClientProvider,
   QueryClient,
 } from "@tanstack/react-query";
+
 import { rainbowKitCustomTheme } from '../components/style';
 
 const WALLET_CONNECT = process.env.NEXT_PUBLIC_WALLET_CONNECT || "";
@@ -46,7 +50,7 @@ export default function RootLayout({
       <body>
         <WagmiProvider config={config}>
           <QueryClientProvider client={queryClient}>
-            <RainbowKitProvider theme={rainbowKitCustomTheme}>
+            <RainbowKitProvider theme={merge(darkTheme(), rainbowKitCustomTheme)}>
               <ChakraProvider 
                 toastOptions={{ 
                     defaultOptions:{ 
