@@ -1,3 +1,4 @@
+import { Log } from "viem";
 
 export type Contract = {
     simpleStorageDeployedBlockNumber: number;
@@ -9,7 +10,15 @@ export type Contract = {
 
 export type ValueChangedEventType = {
     txHash: string | undefined,
-    oldValue: string,
-    newValue: string,
+    oldValue: bigint | undefined;
+    newValue: bigint | undefined;
     from: string,
+}
+
+export interface LogWithArgs extends Log {
+    args: {
+        oldValue: bigint | undefined;
+        newValue: bigint | undefined;
+        who: string;
+    };
 }

@@ -2,7 +2,7 @@
 import Layout from "@/components/Layout";
 import { useContext, useEffect, useState } from "react";
 import { ContractContext } from "@/components/contexts/contractContext";
-import { Contract, ValueChangedEventType } from "@/types/contract";
+import { Contract, ValueChangedEventType, LogWithArgs } from "@/types/contract";
 import {
   Button,
   Flex,
@@ -109,14 +109,14 @@ const Set = () => {
     abi: simpleStorageAbi as unknown as Abi,
     eventName: 'valueChanged',
     onLogs(logs: Log[]) {
-      manageValueChangedEvent(logs[0]);
+      manageValueChangedEvent(logs[0] as LogWithArgs);
     }
   })
 
   /**
  * Build list event data
  */
-  const manageValueChangedEvent = (log: Log) => {
+  const manageValueChangedEvent = (log: LogWithArgs) => {
 
     const valueChangedEvent = createEvent(log);
 
@@ -125,7 +125,9 @@ const Set = () => {
     }
   }
 
-  const createEvent = (log: Log): ValueChangedEventType => {
+
+
+  const createEvent = (log: LogWithArgs): ValueChangedEventType => {
     const valueChangedEvent: ValueChangedEventType = {
       txHash: log.transactionHash?.toString(),
       oldValue: log.args.oldValue,
