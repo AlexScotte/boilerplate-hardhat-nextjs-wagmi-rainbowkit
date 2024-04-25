@@ -29,14 +29,15 @@ const Header = () => {
 
         if (chain.id !== expectedChainId) {
             toast.closeAll();
-
-            toast({
-                title: "Wrong network",
-                description: `Please switch to ${expectedChainViem.name} network`,
-                status: "warning",
-                duration: 9000000000,
-                containerStyle: ToastWarningStyle
-            })
+            if (typeof expectedChainViem === 'object' && 'name' in expectedChainViem) {
+                toast({
+                    title: "Wrong network",
+                    description: `Please switch to ${expectedChainViem.name} network`,
+                    status: "warning",
+                    duration: 9000000000,
+                    containerStyle: ToastWarningStyle
+                })
+            }
         }
         else {
             toast.closeAll();
