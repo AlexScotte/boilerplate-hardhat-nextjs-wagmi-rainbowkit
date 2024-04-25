@@ -1,4 +1,4 @@
-import { ethers } from 'hardhat';
+import { ethers, run } from 'hardhat';
 import hre from 'hardhat';
 import type {
     BaseContract,
@@ -14,7 +14,7 @@ import { SimpleStorage } from '../typechain-types';
 async function main() {
 
     let contract: SimpleStorage;
-    const contractName= "SimpleStorage";
+    const contractName = "SimpleStorage";
 
     try {
 
@@ -30,6 +30,18 @@ async function main() {
         console.log(
             `✅ ${contractName} deployed to: ${contract.target} by: ${owner.address} on network: ${hre.network.name} with chainId: ${hre.network.config.chainId}`
         )
+
+        if (hre.network.name !== "hardhat" && hre.network.name !== "localhost") {
+
+            console.log(`📝 Verifying contract: ${contractName}...`)
+            await run(`verify:verify`, {
+                address: contract.target,
+                // constructorArguments: [],
+            });
+            console.log(
+                `✅ ${contractName} verified ! Check on https://etherscan.io/address/${contract.target}#code`
+            )
+        }
     }
     catch (error) {
         throw new Error(`❌ Error when deploying contract: ${error}`);

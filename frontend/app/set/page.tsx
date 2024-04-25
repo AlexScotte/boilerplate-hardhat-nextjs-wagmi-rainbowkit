@@ -41,7 +41,7 @@ const Set = () => {
   const [newValue, setNewValue] = useState<number>(0);
   const [valueChangedEventList, setValueChangedEventList] = useState<ValueChangedEventType[]>([]);
   const [expectedChainId, expectedChainViem] = GetExpectedChainIdWithEnv();
-  const {data} = useBlockNumber();
+  const { data } = useBlockNumber();
 
   const {
     data: hash,
@@ -53,7 +53,7 @@ const Set = () => {
     isLoading: isTxConfirming,
     isSuccess: isTxConfirmed,
     error: txConfirmationError,
-    
+
   } = useWaitForTransactionReceipt({ hash })
 
   /********************
@@ -69,7 +69,7 @@ const Set = () => {
     const getEventHistory = async () => {
 
       let publicNode = http();
-      if(expectedChainId === ChainID.Sepolia){
+      if (expectedChainId === ChainID.Sepolia) {
         publicNode = http("https://gateway.tenderly.co/public/sepolia");
       }
 
@@ -230,7 +230,7 @@ const Set = () => {
     }
     else {
 
-      if(chain?.id !== expectedChainId){
+      if (chain?.id !== expectedChainId) {
 
         toast.closeAll();
         toast({
@@ -263,7 +263,7 @@ const Set = () => {
       <Card
         sx={MainCardStyle}
         p={5}
-        >
+      >
         <CardBody>
           <Flex
             direction={"column"}
@@ -273,12 +273,12 @@ const Set = () => {
               onChange={(_, valueAsNumber) => setNewValue(valueAsNumber)}
               value={newValue}
               min={0}>
-              <NumberInputField 
-                textAlign={"end"} 
-                sx={MainInputFieldStyle}/>
+              <NumberInputField
+                textAlign={"end"}
+                sx={MainInputFieldStyle} />
               <NumberInputStepper border={0}>
-                <NumberIncrementStepper sx={MainNumberIncrementStepperStyle}/>
-                <NumberDecrementStepper sx={MainNumberIncrementStepperStyle}/>
+                <NumberIncrementStepper sx={MainNumberIncrementStepperStyle} />
+                <NumberDecrementStepper sx={MainNumberIncrementStepperStyle} />
               </NumberInputStepper>
             </NumberInput>
 
@@ -290,22 +290,22 @@ const Set = () => {
             </Button>
 
             <List
-                sx={MainListStyle}>
-                {               
-                valueChangedEventList.length === 0 ? 
-                (
-                  <Center sx={DescriptionTextStyle}>No event</Center> 
-                ):
-                (
-                  valueChangedEventList.map((item, index) => (
-                    <ListItem
-                    key={index}>
-                      <Center sx={DescriptionSmallTextStyle}>
-                        Value changed from {item.oldValue.toString()} to {item.newValue.toString()} by {ToShortAddress(item.from)}
-                      </Center>
-                    </ListItem>
-                  ))
-                )
+              sx={MainListStyle}>
+              {
+                valueChangedEventList.length === 0 ?
+                  (
+                    <Center sx={DescriptionTextStyle}>No event</Center>
+                  ) :
+                  (
+                    valueChangedEventList.map((item, index) => (
+                      <ListItem
+                        key={index}>
+                        <Center sx={DescriptionSmallTextStyle}>
+                          Value changed from {item.oldValue.toString()} to {item.newValue.toString()} by {ToShortAddress(item.from)}
+                        </Center>
+                      </ListItem>
+                    ))
+                  )
               }
             </List>
           </Flex>

@@ -1,6 +1,6 @@
 'use client';
 
-import { Flex, Text, Stack, Card, CardBody } from '@chakra-ui/react'
+import { Flex, Text, Stack, Card, CardBody, Image } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Link from 'next/link'
@@ -14,7 +14,7 @@ import { GetExpectedChainIdWithEnv } from "@/utils/utils";
 
 
 const Header = () => {
-    
+
     const currentRoute = usePathname();
     const { chain } = useAccount();
     const toast = useToast();
@@ -22,7 +22,7 @@ const Header = () => {
 
     useEffect(() => {
 
-        if(!chain){
+        if (!chain) {
             console.log("undefined chain return");
             return;
         }
@@ -38,23 +38,27 @@ const Header = () => {
                 containerStyle: ToastWarningStyle
             })
         }
-        else{
+        else {
             toast.closeAll();
         }
-      }, [chain])
+    }, [chain])
 
 
     return (
         <Flex justifyContent="space-between"
             alignItems="center"
-            p="2rem" 
+            p="2rem"
             sx={HeaderBorderStyle}
-            >
-            <Text>
-                Logo
-            </Text>
+        >
 
+            <Image src="/logo.png" width={"10%"} />
 
+            {/* <div style={{ 
+            // backgroundImage: `url(${process.env.PUBLIC_URL + '/backgrounds/1.png'})`,
+            backgroundImage: `url(./backgrounds/6.png)`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+          }}> */}
             <Stack
                 direction="row"
                 alignItems="center"
@@ -62,8 +66,8 @@ const Header = () => {
 
                 <Link href="/get">
                     <Card sx={(currentRoute === "/get"
-                            ? NavItemActiveStyle
-                            : NavItemNonActiveStyle)}>
+                        ? NavItemActiveStyle
+                        : NavItemNonActiveStyle)}>
                         <CardBody>
                             <Text sx={MainTextStyle}>
                                 GET
@@ -74,10 +78,10 @@ const Header = () => {
 
                 <Link href="/set">
                     <Card sx={(currentRoute === "/set"
-                            ? NavItemActiveStyle
-                            : NavItemNonActiveStyle)}>
+                        ? NavItemActiveStyle
+                        : NavItemNonActiveStyle)}>
                         <CardBody>
-                        <Text sx={MainTextStyle}>
+                            <Text sx={MainTextStyle}>
                                 SET
                             </Text>
                         </CardBody>
