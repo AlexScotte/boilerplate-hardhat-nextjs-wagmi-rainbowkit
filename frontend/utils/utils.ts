@@ -12,7 +12,7 @@ export const ChainID = {
  * @returns The expected chain id in function of the current environment
  */
 export const GetExpectedChainIdWithEnv = () => {
-    if (process.env.NODE_ENV === "development") {
+    if (process.env.NODE_ENV === "production") {
         return [ChainID.Sepolia, sepolia];
     } else {
         return [ChainID.HardhatLocal, localhost];

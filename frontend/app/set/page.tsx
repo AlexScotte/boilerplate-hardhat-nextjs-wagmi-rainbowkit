@@ -232,15 +232,17 @@ const Set = () => {
 
       if (chain?.id !== expectedChainId) {
 
-        toast.closeAll();
-        toast({
-          title: "Wrong network",
-          description: `Please connect to ${expectedChainViem.name}`,
-          status: "warning",
-          duration: 9999999,
-          containerStyle: ToastWarningStyle
-        })
-        return;
+        if (typeof expectedChainViem === 'object' && 'name' in expectedChainViem) {
+          toast.closeAll();
+          toast({
+            title: "Wrong network",
+            description: `Please connect to ${expectedChainViem.name}`,
+            status: "warning",
+            duration: 9999999,
+            containerStyle: ToastWarningStyle
+          })
+          return;
+        }
       }
 
       try {

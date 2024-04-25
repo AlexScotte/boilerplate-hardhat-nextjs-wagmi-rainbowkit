@@ -45,9 +45,9 @@ const Get = () => {
    */
   const getStoredValue = async () => {
 
-    
+
     if (!isConnected) {
-      
+
       toast({
         title: "Not connected",
         description: "Please connect your wallet",
@@ -56,9 +56,8 @@ const Get = () => {
       })
     }
     else {
-      
-      if(chain?.id !== expectedChainId){
-  
+
+      if (typeof expectedChainViem === 'object' && 'name' in expectedChainViem) {
         toast.closeAll();
         toast({
           title: "Wrong network",
@@ -74,13 +73,13 @@ const Get = () => {
       console.log("Get stored value result:");
       console.log(result);
 
-      if(result.status === "success") {
-          
+      if (result.status === "success") {
+
         console.log(`Stored value: ${result.data}`)
         const resultBigInt = result.data as BigInt;
         setStoredValue(resultBigInt.toString());
       }
-      else{
+      else {
 
         toast({
           title: "Error",
@@ -106,7 +105,7 @@ const Get = () => {
             rowGap={5}>
 
             <Text textAlign={"center"}
-                  sx={DescriptionTextStyle}>
+              sx={DescriptionTextStyle}>
               Stored value: <Text sx={DescriptionTextStyle} as='b'>{storedValue}</Text>
             </Text>
 
@@ -115,14 +114,14 @@ const Get = () => {
               onClick={() => getStoredValue()}
               mt="1rem"
               isLoading={getStoredValueLoading}
-              >
+            >
               Get
             </Button>
 
           </Flex>
         </CardBody>
       </Card>
-          
+
 
     </Layout>
   );
