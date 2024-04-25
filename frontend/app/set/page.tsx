@@ -88,7 +88,7 @@ const Set = () => {
 
       let oldEventList: ValueChangedEventType[] = [];
       logs.forEach(log => {
-        const valueChangedEvent = createEvent(log);
+        const valueChangedEvent = createEvent(log as LogWithArgs);
         oldEventList.push(valueChangedEvent);
       });
 
@@ -304,9 +304,16 @@ const Set = () => {
                     valueChangedEventList.map((item, index) => (
                       <ListItem
                         key={index}>
-                        <Center sx={DescriptionSmallTextStyle}>
-                          Value changed from {item.oldValue.toString()} to {item.newValue.toString()} by {ToShortAddress(item.from)}
-                        </Center>
+                        {
+                          item.oldValue !== undefined && item.newValue !== undefined ?
+                            (
+
+                              <Center sx={DescriptionSmallTextStyle}>
+                                Value changed from {item.oldValue.toString()} to {item.newValue.toString()} by {ToShortAddress(item.from)}
+                              </Center>
+                            ) :
+                            <></>
+                        }
                       </ListItem>
                     ))
                   )
