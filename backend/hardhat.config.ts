@@ -1,9 +1,14 @@
+import { config as dotEnvConfig } from "dotenv";
+dotEnvConfig();
+
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "";
+const ACCOUNT_MNEMONIC = process.env.ACCOUNT_MNEMONIC || "";
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "";
-const INFURA_ID = process.env.INFURA_ID || "";
+const ALCHEMY_SEPOLIA_KEY = process.env.ALCHEMY_SEPOLIA_KEY || "";
+const ALCHEMY_MUMBAI_KEY = process.env.ALCHEMY_MUMBAI_KEY || "";
 
 const config: HardhatUserConfig = {
   solidity: "0.8.24",
@@ -17,19 +22,20 @@ const config: HardhatUserConfig = {
       url: "http://127.0.0.1:8545",
       chainId: 31337,
     },
-    goerli: {
-      url: `https://goerli.infura.io/v3/${INFURA_ID}`,
-      // accounts: [`0x${PRIVATE_KEY}`],
-      accounts: {
-        mnemonic: `${process.env.MNEMONIC}`,
-      },
-      chainId: 5,
+    sepolia: {
+      url: `https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_SEPOLIA_KEY}`,
+      accounts: [`0x${PRIVATE_KEY}`],
+      // accounts: {
+      //   mnemonic: ACCOUNT_MNEMONIC,
+      // },
+      chainId: 11155111,
     },
     mumbai: {
-      url: `https://polygon-mumbai.infura.io/v3/${INFURA_ID}`,
-      accounts: {
-        mnemonic: `${process.env.MNEMONIC}`,
-      },
+      url: `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_MUMBAI_KEY}`,
+      accounts: [`0x${PRIVATE_KEY}`],
+      // accounts: {
+      //   mnemonic: ACCOUNT_MNEMONIC,
+      // },
       chainId: 80001,
       gasPrice: 80000000000,
     },
