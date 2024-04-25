@@ -12,7 +12,7 @@ export const ChainID = {
  * @returns The expected chain id in function of the current environment
  */
 export const GetExpectedChainIdWithEnv = () => {
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NODE_ENV === "development") {
         return [ChainID.Sepolia, sepolia];
     } else {
         return [ChainID.HardhatLocal, localhost];
@@ -24,6 +24,6 @@ export const GetExpectedChainIdWithEnv = () => {
  * @param address 
  * @returns 
  */
-export const ToShortAddress = (address : string) => {
+export const ToShortAddress = (address: string) => {
     return address.substring(0, 5) + "..." + address.substring(address.length - 4);
-  };
+};
