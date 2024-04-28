@@ -1,16 +1,15 @@
-<img width="1132" alt="banner-marketplace" src="https://github.com/AlexScotte/NG-Marketplace/assets/53000621/d4da6856-a391-46d7-b818-302da1dce98e">
-
+# Boilerplate Hardhat | Wagmi V2 | Viem V2 | RainbowKit V2 | Typescript | NextJS | ChakraUI
 
 This project is a template that can serve as a basis for any new decentralized application project wanting to use hardhat for the development of smart contracts and Next.js and Wagmi for the user interface.
 
-https://boilerplate-hardhat-nextjs-wagmi-rainbowkit.vercel.app/get
+https://www.loom.com/share/9a3456032f4d4123a47201bb8f36add0
 
 <details>
 <summary><h1>Preview</h1></summary>
+  
+![image](https://github.com/AlexScotte/boilerplate-hardhat-nextjs-wagmi-rainbowkit/assets/53000621/4d421e30-2b19-4384-a246-5bcb21e40db6)
 
-![image](https://github.com/AlexScotte/boilerplate-hardhat-nextjs-wagmi-rainbowkit/assets/53000621/363ffea5-a7e6-43c9-b6af-74588ffc02e1)
-
-![image](https://github.com/AlexScotte/boilerplate-hardhat-nextjs-wagmi-rainbowkit/assets/53000621/f70f4130-4e69-4706-b8ab-be032661df86)
+![image](https://github.com/AlexScotte/boilerplate-hardhat-nextjs-wagmi-rainbowkit/assets/53000621/d6050b37-7373-4db2-8bbd-305b9cc80263)
 
 </details>
 
