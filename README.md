@@ -1,5 +1,19 @@
 <img width="1132" alt="banner-marketplace" src="https://github.com/AlexScotte/NG-Marketplace/assets/53000621/d4da6856-a391-46d7-b818-302da1dce98e">
 
+
+This project is a template that can serve as a basis for any new decentralized application project wanting to use hardhat for the development of smart contracts and Next.js and Wagmi for the user interface.
+
+https://boilerplate-hardhat-nextjs-wagmi-rainbowkit.vercel.app/get
+
+<details>
+<summary><h1>Preview</h1></summary>
+
+![image](https://github.com/AlexScotte/boilerplate-hardhat-nextjs-wagmi-rainbowkit/assets/53000621/363ffea5-a7e6-43c9-b6af-74588ffc02e1)
+
+![image](https://github.com/AlexScotte/boilerplate-hardhat-nextjs-wagmi-rainbowkit/assets/53000621/f70f4130-4e69-4706-b8ab-be032661df86)
+
+</details>
+
 <details>
 <summary><h1>Back-end</h1></summary>
 
@@ -64,9 +78,22 @@ Do not hesitate to uncomment the instruction in hardhat.config.ts to increase th
 
 <details>
 <summary><h1>Front-end</h1></summary>
-## Deployment
-  5. Bar
-     * Baz
-     * Qux
-     * 
+
+## Description
+The front is an interface which will allow interaction with the deployed smart contract. It allows the user to connect their wallet using the rainbow kit tool and to get and update the contract value on the blockchain.
+The front is already deployed and you can interact with it 
+https://boilerplate-hardhat-nextjs-wagmi-rainbowkit.vercel.app
+
+All commands must be executed in the frontend folder (`cd frontend`).
+
+## Configuration
+
+If you want to deploy the front in local you must create a .env file in the root folder of the front-end. The file must have these properties:
+```
+NEXT_PUBLIC_WALLET_CONNECT=1[...]4 // Project ID created on wallet connect cloud to allow the user to connect via Wallet connect 
+```
+## Deploying on localhost
+
+Simply run the command `npm run dev` to deploy the front-end.
+
 </details>
