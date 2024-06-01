@@ -106,7 +106,7 @@ async function saveFrontendFiles(contractName: string, contract: BaseContract) {
     }
 
     // Write deployed contract informations in a file
-    console.log(`🖍️ Write deployed ${contractName} informations in a ${frontContractFilePath}`);
+    console.log(`🖍️  Write deployed ${contractName} informations in ${frontContractFilePath}`);
     if (abiChanged || !previousArtifact.hasOwnProperty("networks")) {
         previousArtifact.networks = {};
     }

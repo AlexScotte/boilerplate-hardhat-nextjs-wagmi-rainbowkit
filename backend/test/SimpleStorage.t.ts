@@ -33,7 +33,7 @@ describe("📝 SimpleStorage Contract", function () {
             expect(await contract.owner()).to.equal(owner.address);
         });
 
-        it("Should set the right initiale value", async function () {
+        it("Should set the right initial value", async function () {
 
             const { contract } = await loadFixture(deployContractFixture);
 
