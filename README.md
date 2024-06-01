@@ -55,8 +55,8 @@ And if necessary modify the hardhat.config.ts if you want to use a specific RPC 
 ```
 
 ## Deploying onchain
- * To deploy the local node, simply run you node with the command `npx hardhat node` and execute the command `npx hardhat run ./scripts/deploy.ts --network localhost`. Hardhat will use the first prefunding account to deploy the contract onchain.
- * To deploy on sepolia testnet, don't forget to configure the .env file and execute the command `npx hardhat run ./scripts/deploy.ts --network sepolia`. Hardhat will use the private key indicated in the .env file to deploy the contract onchain (don't forget to have faucet tokens in the wallet). 
+ * To deploy the local node, simply run you node with the command `make node` (or `npx hardhat node`) and execute the command `make deploy` (or `npx hardhat run ./scripts/deploy.ts --network localhost`). Hardhat will execute the deploy.ts script and use the first prefunding account to deploy the contract on the local chain.
+ * To deploy on sepolia testnet, don't forget to configure the .env file and execute the command `make deploy chain=sepolia` (or `npx hardhat run ./scripts/deploy.ts --network sepolia`). Hardhat will use the private key indicated in the .env file to deploy the contract on the specified chain (don't forget to have faucet tokens in the wallet). 
 
 <img width="907" alt="image" src="https://github.com/AlexScotte/boilerplate-hardhat-nextjs-wagmi-rainbowkit/assets/53000621/56e7c15b-cafd-418c-8e0b-f391021e6048">
 
@@ -68,7 +68,7 @@ This makes it easy to modify and redeploy your contract and test it without impo
 
 ## Testing contract (optional)
 
-Launch the coverage command `npx hardhat coverage` to build and test the contract.
+Launch the coverage command `make test` (or `npx hardhat test`) or `make test coverage` ( or `npx hardhat coverage`) to build and test the contract with or without the coverage.
 Do not hesitate to uncomment the instruction in hardhat.config.ts to increase the gas limit before running the tests with coverage.
 
 ![image](https://github.com/AlexScotte/boilerplate-hardhat-nextjs-wagmi-rainbowkit/assets/53000621/75b7ab1b-b0c5-4bdd-bd9a-bb0130bf186d)
