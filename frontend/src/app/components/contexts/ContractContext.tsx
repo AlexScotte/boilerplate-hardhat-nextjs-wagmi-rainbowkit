@@ -27,7 +27,7 @@ const ContractProvider = ({ children }: { children: React.ReactNode }) => {
 
         try {
             // Try to get the contract artifact
-            const simpleStorageArtifact = require("@/contracts/SimpleStorage.json");
+            const simpleStorageArtifact = require("@/src/contracts/SimpleStorage.json");
             if (!simpleStorageArtifact.networks[expectedChainId.toString()]) {
 
                 const error = `SimpleStorage contract not deployed on chaind id ${expectedChainId}`;
