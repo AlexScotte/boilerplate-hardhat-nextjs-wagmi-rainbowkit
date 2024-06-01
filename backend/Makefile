@@ -11,6 +11,12 @@ help:
 	@echo "  make deploy [chain=...]"
 	@echo "    example: make deploy -> to deploy by default on localhost"
 	@echo "	     make deploy chain=sepolia -> to deploy on sepolia"
+	@echo "\n"
+	@echo "  make test"
+	@echo "    -> to simply test the contract"
+	@echo "\n"
+	@echo "  make coverage"
+	@echo "    -> to test the contract with coverage"
 
 node:
 	npx hardhat node
@@ -25,10 +31,10 @@ else
 endif
 
 test:
-ifdef coverage
-	@echo Test contract with coverage
-	@npx hardhat coverage
-else
 	@echo Test contract
 	@npx hardhat test
-endif
+
+coverage:
+	@echo Test contract with coverage
+	@npx hardhat coverage
+
