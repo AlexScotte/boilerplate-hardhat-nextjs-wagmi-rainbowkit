@@ -27,20 +27,6 @@ const Get = () => {
   const [expectedChainId, expectedChainViem] = GetExpectedChainIdWithEnv();
   const [publicClient, setPublicClient] = useState<PublicClient>();
 
-
-  // const {
-  //   data: data,
-  //   isLoading: getStoredValueLoading,
-  //   error: getStoredValueError,
-  //   refetch: refetchStoredValue
-  // } = useReadContract({
-  //   address: simpleStorageAddress as `0x${string}`,
-  //   abi: simpleStorageAbi as unknown as Abi,
-  //   functionName: "get",
-  //   account: address
-  // });
-
-
   useEffect(() => {
 
     let publicNode = http();
