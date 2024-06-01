@@ -4,7 +4,7 @@ import type {
     BaseContract,
 } from "ethers";
 
-const contractFrontFolder = "../../frontend/contracts";
+const contractFrontFolder = "../../frontend/src/contracts";
 const artifactsFolder = "../artifacts/contracts";
 
 

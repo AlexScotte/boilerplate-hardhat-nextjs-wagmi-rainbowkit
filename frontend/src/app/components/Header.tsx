@@ -6,11 +6,11 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Link from 'next/link'
 import { usePathname } from 'next/navigation';
 
-import { HeaderBorderStyle, MainTextStyle, NavItemActiveStyle, NavItemNonActiveStyle, ToastWarningStyle } from "@/components/style";
+import { HeaderBorderStyle, MainTextStyle, NavItemActiveStyle, NavItemNonActiveStyle, ToastWarningStyle } from "@/src/app/components/style";
 import { useAccount } from 'wagmi'
 import { useToast } from "@chakra-ui/react";
 
-import { GetExpectedChainIdWithEnv } from "@/utils/utils";
+import { GetExpectedChainIdWithEnv } from "@/src/utils/utils";
 
 
 const Header = () => {

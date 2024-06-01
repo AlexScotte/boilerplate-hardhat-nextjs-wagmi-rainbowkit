@@ -3,35 +3,35 @@ body{
 
 @font-face {
     font-family: 'UnitedKingdom';
-    src: local('UnitedKingdom'), url(./fonts/UnitedKingdom.otf) format('opentype');
+    src: local('UnitedKingdom'), url(./src/fonts/UnitedKingdom.otf) format('opentype');
     /* other formats include: 'woff2', 'truetype, 'opentype',
                               'embedded-opentype', and 'svg' */
   }
 
   @font-face {
     font-family: 'RedSeven';
-    src: local('RedSeven'), url(./fonts/RedSeven.otf) format('opentype');
+    src: local('RedSeven'), url(./src/fonts/RedSeven.otf) format('opentype');
     /* other formats include: 'woff2', 'truetype, 'opentype',
                               'embedded-opentype', and 'svg' */
   }
 
   @font-face {
     font-family: 'SweraRegular';
-    src: local('SweraRegular'), url(./fonts/SweraRegular.otf) format('opentype');
+    src: local('SweraRegular'), url(./src/fonts/SweraRegular.otf) format('opentype');
     /* other formats include: 'woff2', 'truetype, 'opentype',
                               'embedded-opentype', and 'svg' */
   }
 
   @font-face {
     font-family: 'SambaIsDead';
-    src: local('SambaIsDead'), url(./fonts/SambaIsDead.ttf) format('truetype');
+    src: local('SambaIsDead'), url(./src/fonts/SambaIsDead.ttf) format('truetype');
     /* other formats include: 'woff2', 'truetype, 'opentype',
                               'embedded-opentype', and 'svg' */
   }
 
   @font-face {
     font-family: 'Ethnocentric';
-    src: local('Ethnocentric'), url(./fonts/Ethnocentric.otf) format('opentype');
+    src: local('Ethnocentric'), url(./src/fonts/Ethnocentric.otf) format('opentype');
     /* other formats include: 'woff2', 'truetype, 'opentype',
                               'embedded-opentype', and 'svg' */
   }

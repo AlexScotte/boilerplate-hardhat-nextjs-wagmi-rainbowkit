@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
-import { GetExpectedChainIdWithEnv } from "@/utils/utils";
-import { useErrorStore } from "@/components/errors/ErrorStore";
-import { Contract } from "@/types/contract";
+import { GetExpectedChainIdWithEnv } from "@/src/utils/utils";
+import { useErrorStore } from "@/src/app/components/errors/ErrorStore";
+import { Contract } from "@/src/types/contract";
 
 export const ContractContext = createContext<Contract>({} as Contract);
 

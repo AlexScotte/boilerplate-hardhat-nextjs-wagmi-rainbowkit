@@ -1,8 +1,8 @@
 'use client';
 import { useContext, useEffect, useState } from "react";
-import { ContractContext } from "@/components/contexts/contractContext";
-import { Contract } from "@/types/contract";
-import Layout from "@/components/Layout";
+import { ContractContext } from "@/src/app/components/contexts/ContractContext";
+import { Contract } from "@/src/types/contract";
+import Layout from "@/src/app/components/Layout";
 import { Button, Text, Flex, Center } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
@@ -15,8 +15,8 @@ import {
 import {
   type Abi,
 } from 'abitype'
-import { DescriptionTextStyle, MainButtonStyle, MainCardStyle, ToastErrorStyle, ToastWarningStyle } from "@/components/style";
-import { GetExpectedChainIdWithEnv } from "@/utils/utils";
+import { DescriptionTextStyle, MainButtonStyle, MainCardStyle, ToastErrorStyle, ToastWarningStyle } from "@/src/app/components/style";
+import { GetExpectedChainIdWithEnv } from "@/src/utils/utils";
 
 const Get = () => {
 
@@ -63,7 +63,7 @@ const Get = () => {
           toast.closeAll();
           toast({
             title: "Wrong network",
-            description: `Please connect to ${expectedChainViem.name}`,
+            description: `Please switch to ${expectedChainViem.name} network`,
             status: "warning",
             duration: 9999999,
             containerStyle: ToastWarningStyle

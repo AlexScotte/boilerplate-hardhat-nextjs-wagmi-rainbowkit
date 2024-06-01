@@ -1,8 +1,8 @@
 'use client';
-import Layout from "@/components/Layout";
+import Layout from "@/src/app/components/Layout";
 import { useContext, useEffect, useState } from "react";
-import { ContractContext } from "@/components/contexts/contractContext";
-import { Contract, ValueChangedEventType, LogWithArgs } from "@/types/contract";
+import { ContractContext } from "@/src/app/components/contexts/ContractContext";
+import { Contract, ValueChangedEventType, LogWithArgs } from "@/src/types/contract";
 import {
   Button,
   Flex,
@@ -31,8 +31,8 @@ import {
 } from 'abitype'
 
 import { createPublicClient, http, Log, parseAbiItem, Chain } from "viem";
-import { ChainID, GetExpectedChainIdWithEnv, ToShortAddress } from "@/utils/utils";
-import { DescriptionSmallTextStyle, DescriptionTextStyle, MainButtonStyle, MainCardStyle, MainInputFieldStyle, MainInputStyle, MainListStyle, MainNumberIncrementStepperStyle, MainTextStyle, ToastErrorStyle, ToastInfoStyle, ToastSuccessStyle, ToastWarningStyle } from "@/components/style";
+import { ChainID, GetExpectedChainIdWithEnv, ToShortAddress } from "@/src/utils/utils";
+import { DescriptionSmallTextStyle, DescriptionTextStyle, MainButtonStyle, MainCardStyle, MainInputFieldStyle, MainInputStyle, MainListStyle, MainNumberIncrementStepperStyle, MainTextStyle, ToastErrorStyle, ToastInfoStyle, ToastSuccessStyle, ToastWarningStyle } from "@/src/app/components/style";
 
 const Set = () => {
   const { address, isConnected, chain } = useAccount();
@@ -238,7 +238,7 @@ const Set = () => {
           toast.closeAll();
           toast({
             title: "Wrong network",
-            description: `Please connect to ${expectedChainViem.name}`,
+            description: `Please switch to ${expectedChainViem.name} network`,
             status: "warning",
             duration: 9999999,
             containerStyle: ToastWarningStyle

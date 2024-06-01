@@ -1,8 +1,8 @@
 'use client';
-import '../index.css';
+import '@/index.css';
 
 import { ChakraProvider } from "@chakra-ui/react";
-import ContractProvider from '../components/contexts/contractContext';
+import ContractProvider from '@/src/app/components/contexts/ContractContext';
 import {
   getDefaultConfig,
   RainbowKitProvider,
@@ -25,7 +25,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
-import { rainbowKitCustomTheme } from '../components/style';
+import { rainbowKitCustomTheme } from '@/src/app/components/style';
 
 const WALLET_CONNECT = process.env.NEXT_PUBLIC_WALLET_CONNECT || "";
 
